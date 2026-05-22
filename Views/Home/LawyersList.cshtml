@@ -1,0 +1,90 @@
+﻿@using Application.Common.Pagination
+@using Application.Models.LawyerDtos
+@model PaginatedList<LawyerDto>
+@{
+    ViewData["Title"] = "LawyersList";
+}
+<!-- Search -->
+<div class="mb-6">
+    <input  type="text"
+           onchange="Search()"
+           id="searchInput"
+           placeholder="جستجو..." value="@ViewBag.search"
+           class="w-full rounded-xl border px-4 py-2" />
+</div>
+
+<!-- Loading -->
+<div id="loading" class="hidden py-6 text-center">
+    در حال بارگذاری...
+</div>
+<div id="DataContainer">
+
+</div>
+
+@section Scripts {
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded",async function(){
+            await GetList(1);
+        });
+
+
+
+        async function GetList(page){
+            const searchEl =document.getElementById("searchInput");
+            const searchTxt= searchEl == null ? "" : searchEl.value;
+
+            // const numPgEl =document.getElementById("numberOfItems");
+            const numPgEl =10
+
+            const numOfPage= numPgEl == null ? 4 : numPgEl.value;
+            var response = await fetch("/Home/GetLawyersList?page="+page + "&search="+searchTxt +"&pageSize="+numOfPage);
+            if(response.ok){
+                var res=await response.text();
+                var container=document.getElementById("DataContainer");
+                container.innerHTML =res;
+            }
+
+        }
+
+
+        async function Search(){
+            const searchTxt =document.getElementById("searchInput").value;
+            const numOfPage =document.getElementById("numberOfItems").value;
+            var response = await fetch("/Home/GetLawyersList?search="+searchTxt+"&pageSize="+numOfPage);
+            if(response.ok){
+                var res=await response.text();
+                var container=document.getElementById("DataContainer");
+                container.innerHTML =res;
+            }
+        }
+        async function PageItems(){
+            const numOfPage =document.getElementById("numberOfItems").value;
+            const searchTxt =document.getElementById("searchInput").value;
+            var response = await fetch("/Home/GetLawyersList?search="+searchTxt+"&pageSize="+numOfPage);
+            if(response.ok){
+                console.log("");
+                var res=await response.text();
+                var container=document.getElementById("DataContainer");
+                container.innerHTML =res;
+            }
+        }
+
+    </script>
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

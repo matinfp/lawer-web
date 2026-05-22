@@ -1,0 +1,42 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<input type="hidden" id="phoneNumber" value="@ViewBag.PhoneNumber" />
+<div class="modal fade" id="otpModal">
+    <div class="modal-dialog">
+        <div class="modal-content p-3">
+            <h5>کد تایید</h5>
+
+            <input id="otp" class="form-control" placeholder="کد ۶ رقمی" />
+
+            <button onclick="verifyOtp()" class="btn btn-primary mt-2">
+                تایید
+            </button>
+        </div>
+    </div>
+</div>
+
+
+
+    <script>
+        function verifyOtp() {
+                fetch('/ForgetPassword/VerifyOtp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `phoneNumber=${encodeURIComponent(document.getElementById('phoneNumber').value)}&otp=${encodeURIComponent(document.getElementById('otp').value)}`
+
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    window.location =
+                            '/ForgetPassword/ResetPassword?phoneNumber=' +
+                        document.getElementById('phoneNumber').value;
+                } else {
+                    alert('کد نامعتبر است');
+                }
+            });
+        }
+    </script>

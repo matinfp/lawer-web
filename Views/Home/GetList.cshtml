@@ -1,0 +1,84 @@
+﻿@using Application.Common.Pagination
+@using Application.Models.LawyerDtos
+@model PaginatedList<LawyerDto>
+
+<h1 class="py-10 text-center font-bold">تمامی وکلای سایت</h1>
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    @foreach (var item in Model.Items)
+    {
+        <div id="lawyerCard"
+             class="group relative flex flex-col overflow-hidden rounded-[2rem] border border-gray-100 bg-white p-5 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(79,70,229,0.1)]">
+
+            <div class="relative mb-4 flex justify-center">
+                <div class="absolute inset-0 rounded-2xl bg-gradient-to-b from-indigo-50/50 to-transparent"></div>
+
+                <a asp-controller="Lawyer"
+                   asp-action="Lawyer"
+                   asp-route-slug="@item.LawyerSlug"
+                   class="relative z-10">
+                    <img src="/api/file/getfile?fileName=@item.Path"
+                         alt="مشکل در نمایش عکس"
+                         class="h-28 w-28 rounded-2xl border-4 border-white object-cover shadow-xl transition-transform duration-500 group-hover:scale-105"
+                         onerror="this.src='/images/lawyers/avatar.webp'" />
+
+                    <span class="absolute right-1 bottom-1 h-4 w-4 rounded-full border-2 border-white bg-green-500"></span>
+                </a>
+            </div>
+
+            <div class="flex flex-grow flex-col text-center">
+                <h2 class="text-xl font-extrabold tracking-tight text-gray-800">
+                    <a asp-controller="Lawyer"
+                       asp-action="Lawyer"
+                       asp-route-slug="@item.LawyerSlug"
+                       class="transition-colors hover:text-indigo-600">@item.FullName</a>
+                </h2>
+
+                <div class="mt-2 flex items-center justify-center">
+                    <div class="flex items-center gap-1.5 rounded-full border border-yellow-100 bg-yellow-50 px-3 py-1">
+                        <span class="text-xs font-bold text-yellow-600">★ @item.RatingAverage</span>
+                        <span class="text-[10px] text-gray-400">(@item.RatingAverage نظر)</span>
+                    </div>
+                </div>
+
+                <div class="mt-4 grid grid-cols-2 gap-2 border-y border-gray-50 py-3">
+                    <div class="text-right">
+                        <p class="tracking-wider text-[10px] text-gray-400 uppercase">مشاوره موفق</p>
+                        <p class="text-sm font-bold text-gray-700">@item.CaseCount</p>
+                    </div>
+                    <div class="border-r border-gray-50 pr-2 text-right">
+                        <p class="tracking-wider text-[10px] text-gray-400 uppercase">امتیاز کیفی</p>
+                        <p class="text-sm font-bold text-gray-700">عالی</p>
+                    </div>
+                </div>
+
+                <div class="mt-4 flex flex-wrap justify-center gap-1.5">
+                    @foreach (var speciality in item.Specialization.Take(3)) // Limiting to 3 for cleaner look
+                    {
+                        <span class="rounded-lg bg-indigo-50/50 px-2.5 py-1 font-bold text-[11px] text-indigo-600 transition-colors group-hover:bg-indigo-100">
+                            @speciality.Title
+                        </span>
+                    }
+                </div>
+            </div>
+
+            <div class="mt-6 flex items-center justify-between border-t border-gray-50 pt-4" dir="rtl">
+                <div class="text-right">
+                    <p class="font-medium text-[10px] text-gray-400">هزینه مشاوره</p>
+                    <p class="text-lg font-black text-indigo-600">
+                        200,000 <span class="font-normal text-[10px] text-gray-500">تومان</span>
+                    </p>
+                </div>
+
+                <a asp-controller="Lawyer"
+                   asp-action="Lawyer"
+                   asp-route-slug="@item.LawyerSlug"
+                   class="flex h-11 w-11 items-center justify-center rounded-xl bg-green-600 text-white shadow-lg shadow-green-200 transition-all hover:bg-green-700 hover:shadow-green-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    }
+
+</div>

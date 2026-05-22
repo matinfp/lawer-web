@@ -1,0 +1,44 @@
+﻿@using Application.Models
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="font-display flex min-h-screen items-center justify-center bg-cover bg-fixed bg-no-repeat">
+    <div class="bg-opacity-90 w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl backdrop-blur-sm">
+        <h2 class="mb-6 text-center text-3xl font-bold text-gray-800">‌ورود  </h2>
+        <div asp-validation-summary="All" class="mb-4 text-red-600"></div>
+
+        <form asp-action="Login" method="post" class="space-y-4">
+            <div>
+                <label class="mb-1 block text-gray-700">شماره تماس</label>
+                <input asp-for="PhoneNumber"  type="tel" class="w-full rounded-lg border p-3 focus:ring focus:ring-green-300" placeholder="مثلاً 09123456789">
+                <span asp-validation-for="PhoneNumber" class="text-red-600"></span>
+            </div>
+            <div>
+                <label class="mb-1 block text-gray-700">رمز عبور</label>
+                <input asp-for="Password"  type="password" class="w-full rounded-lg border p-3 focus:ring focus:ring-green-300" placeholder="رمز عبور">
+                <span asp-validation-for="Password" class="text-red-600"></span>
+            </div>
+            <div class="mb-4 flex items-center">
+                <div class="form-check">
+                    <input asp-for="RememberMe" name="RememberMe" type="checkbox" class="border-default-medium bg-neutral-secondary-medium h-4 w-4 rounded-xs border focus:ring-brand-soft focus:ring-2" />
+                    <label asp-for="RememberMe" class="text-heading ms-2 text-sm font-medium select-none">من را به خاطر داشته باش</label>
+                </div>
+            </div>
+            <button type="submit"  class="w-full rounded-lg bg-green-600 py-3 font-semibold text-white transition hover:bg-green-700">ورود</button>
+            <p class="mt-4 text-center text-gray-700">
+                 ثبت‌نام نکرده‌اید؟
+                <a asp-action="Register" asp-controller="Account" class="font-semibold text-green-700 hover:underline">ثبت‌نام</a>
+            </p>
+            <p class="mt-4 text-center text-gray-700">
+                 کلمه عبور را فراموش کردام:
+                <a asp-action="ForgetPassword" asp-controller="Account" class="font-semibold text-green-700 hover:underline">‌بازیابی کلمه عبور</a>
+            </p>
+
+        </form>
+    </div>
+</div>
+@section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+}

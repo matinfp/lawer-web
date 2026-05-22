@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html class="rtl" lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Lawyer</title>
+    <link rel="stylesheet" href="~/css/App.css" asp-append-version="true" />
+    <link href="~/js/select2/select2.min.css" rel="stylesheet" />
+</head>
+
+<body class="font-yekan flex min-h-screen flex-col scroll-smooth bg-gray-50">
+  
+    @RenderBody()
+
+  
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

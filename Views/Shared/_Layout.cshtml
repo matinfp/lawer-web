@@ -1,0 +1,211 @@
+﻿@using Domain.Models.Users
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> _signInManager
+@inject UserManager<User> _userManager
+@{
+    // Check if we are currently on the Chat page
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString()?.ToLower();
+    var isChatPage = currentController == "chat";
+}
+
+<!DOCTYPE html>
+<html class="rtl" lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- Added maximum-scale=1.0 to prevent zooming on mobile inputs -->
+    <title>@ViewData["Title"] - Lawyer</title>
+    <link rel="stylesheet" href="~/css/App.css" asp-append-version="true" />
+    <link href="~/js/select2/select2.min.css" rel="stylesheet" />
+</head>
+
+<!-- LOGIC CHANGED HERE:
+     If Chat Page: h-screen overflow-hidden (Locks the whole page)
+     Normal Page: min-h-screen scroll-smooth (Allows normal scrolling) -->
+<body class="font-display flex flex-col bg-gray-50 @(isChatPage ? "h-screen overflow-hidden" : "min-h-screen scroll-smooth")">
+
+    <!-- Desktop Navbar (Top) -->
+    <nav class="liquid-glass font- fixed top-0 z-50 hidden h-20 w-full items-center justify-between bg-white/80 px-8 shadow-lg backdrop-blur-md md:flex">
+        <!-- Left: Logo + Menu -->
+        <div class="flex items-center gap-8">
+            <a asp-action="Index" asp-controller="Home">
+                <img src="/images/icons/Logo.png" alt="text">
+            </a>
+            <div class="flex gap-6 text-black">
+                <a asp-action="Index" asp-controller="Home" class="rounded-md px-2 py-1 transition duration-300 hover:bg-green-300 hover:text-blue-600 hover:drop-shadow-md">خانه</a>
+                <a asp-action="AboutUs" asp-controller="Home" class="rounded-md px-2 py-1 transition duration-300 hover:bg-red-300 hover:text-red-600 hover:drop-shadow-md">درباره ما</a>
+                <a asp-action="ContactUs" asp-controller="Home" class="rounded-md px-2 py-1 transition duration-300 hover:bg-blue-300 hover:text-red-600 hover:drop-shadow-md">ارتباط با ما</a>
+            </div>
+            <input type="text" placeholder="جستجو..." class="w-50 px-3 py-2 rounded-md border-1 border-black liquid-glass text-black focus:outline-none focus:ring focus:ring-black" />
+        </div>
+
+        <!-- Right: Buttons -->
+        <div class="flex items-center gap-2">
+            @if (_signInManager.IsSignedIn(User))
+            {
+                var user = await _userManager.GetUserAsync(User);
+                <div class="relative" dir="rtl">
+                    <img id="avatarButton" class="h-10 w-10 cursor-pointer rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="User dropdown">
+                    <!-- Dropdown menu -->
+                    <div id="userDropdown" class="absolute right-0 z-10 mt-2 hidden w-44 rounded-md border border-green-500 bg-green-100 shadow-lg sm:right-auto sm:left-0">
+                        <div class="border-b border-green-300 px-4 py-3 text-sm text-green-900">
+                            <div class="truncate font-medium">@user.Email</div>
+                            <div class="truncate text-xs text-green-800">@user.FirstName @user.LastName</div>
+                        </div>
+                        <ul class="p-2 text-sm font-medium text-green-900">
+                            <li><a href="#" class="block w-full rounded-md p-2 hover:bg-green-200 hover:text-green-900">داشبورد</a></li>
+                            <li><a href="#" class="block w-full rounded-md p-2 hover:bg-green-200 hover:text-green-900">تنظیمات</a></li>
+                            <li>
+                                <form method="post" asp-action="Logout" asp-controller="Account" asp-area="">
+                                    <button class="block w-full rounded-md rounded-md p-2 text-red-600 hover:bg-green-200" type="submit">
+                                        <i class="fas fa-sign-out-alt c-main fa-sm mr-2"></i>خروج
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <a asp-action="Login" asp-controller="Account" class="flex items-center gap-2 rounded-lg bg-gradient-to-r from-teal-400 to-blue-500 px-4 py-2 font-bold text-white transition hover:from-teal-500 hover:to-blue-500">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+                    ورود / ثبت نام
+                </a>
+            }
+        </div>
+    </nav>
+
+    <!-- Mobile Header (Top) -->
+    <header class="liquid-glass font-display fixed top-0 z-50 flex h-16 w-full items-center justify-between border-b border-gray-200 px-4 shadow-md backdrop-blur-md md:hidden">
+        <a asp-action="Index" asp-controller="Home">
+            <img src="/images/icons/Logo.png" alt="text">
+        </a>
+        <div class="block md:hidden">
+            <input type="text" placeholder="جستجو..." class="w-40 px-3 py-2 rounded-md border-1 border-black liquid-glass text-black focus:outline-none focus:ring focus:ring-black" />
+        </div>
+    </header>
+
+    <!-- Mobile Bottom Navigation -->
+    @{
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    }
+    <nav class="font-display liquid-glass fixed right-0 bottom-0 left-0 z-50 border-t border-gray-200 bg-white shadow-2xl md:hidden">
+        <div class="flex h-20 items-center justify-around px-2">
+            <a asp-action="Index" asp-controller="Home" class="group flex flex-1 flex-col items-center justify-center gap-1">
+                <div class="rounded-xl p-2 transition group-hover:bg-green-50 @(currentAction == "Index" && !isChatPage ? "bg-red-50" : "")">
+                    <svg class="h-6 w-6 @(currentAction == "Index" && !isChatPage ? "text-green-600" : "text-gray-600") transition group-hover:text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                </div>
+                <span class="font-display text-xs @(currentAction == "Index" && !isChatPage ? "text-green-600 font-bold" : "text-gray-600") transition group-hover:text-green-600">خانه</span>
+            </a>
+            <!-- About -->
+            <a asp-action="AboutUs" asp-controller="Home" class="group flex flex-1 flex-col items-center justify-center gap-1">
+                <div class="rounded-xl p-2 transition group-hover:bg-green-50 @(currentAction == "AboutUs" ? "bg-red-50" : "")">
+                    <svg class="h-6 w-6 @(currentAction == "AboutUs" ? "text-red-600" : "text-gray-600") transition group-hover:text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                </div>
+                <span class="font-display text-xs @(currentAction == "AboutUs" ? "text-red-600 font-bold" : "text-gray-600") transition group-hover:text-green-600">درباره ما</span>
+            </a>
+            <!-- Contact -->
+            <a asp-action="ContactUs" asp-controller="Home" class="group flex flex-1 flex-col items-center justify-center gap-1">
+                <div class="rounded-xl p-2 transition group-hover:bg-green-50 @(currentAction == "ContactUs" ? "bg-red-50" : "")">
+                    <svg class="h-6 w-6 @(currentAction == "ContactUs" ? "text-blue-600" : "text-gray-600") transition group-hover:text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                </div>
+                <span class="font-display text-xs @(currentAction == "ContactUs" ? "text-blue-600 font-bold" : "text-gray-600") transition group-hover:text-green-600">ارتباط با ما</span>
+            </a>
+            <!-- Register -->
+            <a asp-action="Register" asp-controller="Account" class="group flex flex-1 cursor-pointer flex-col items-center justify-center gap-1">
+                <div class="rounded-xl p-2 transition group-hover:bg-green-50 @(currentAction == "Register" ? "bg-red-50" : "")">
+                    <svg class="h-6 w-6 @(currentAction == "Register" ? "text-red-600" : "text-gray-600") transition group-hover:text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" /></svg>
+                </div>
+                <span class="font-display text-xs @(currentAction == "Register" ? "text-red-600 font-bold" : "text-gray-600") transition group-hover:text-green-600">ثبت نام</span>
+            </a>
+            <!-- Login -->
+            <a asp-action="Login" asp-controller="Account" class="group flex flex-1 cursor-pointer flex-col items-center justify-center gap-1">
+                <div class="rounded-xl p-2 transition group-hover:bg-blue-50 @(currentAction == "Login" ? "bg-red-50" : "")">
+                    <svg class="h-6 w-6 @(currentAction == "Login" ? "text-green-600" : "text-gray-600") transition group-hover:text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" /></svg>
+                </div>
+                <span class="font-display text-xs @(currentAction == "Login" ? "text-green-600 font-bold" : "text-gray-600") transition group-hover:text-blue-600">ورود</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Floating Chat Button (Hidden on Chat Page) -->
+    @if (!isChatPage)
+    {
+        <a asp-action="Index" asp-controller="Chat" class="group fixed bottom-24 right-5 z-[60] flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/40 transition-all duration-300 hover:scale-110 hover:-translate-y-1 hover:shadow-cyan-500/60 md:bottom-8 md:right-8">
+            <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-cyan-400 opacity-20 duration-1000 group-hover:duration-500"></span>
+            <span class="relative font-bold text-lg">چت</span>
+        </a>
+    }
+
+    <!-- Render Body -->
+    <!-- Logic: If chat page, ensure the body takes full height for the internal scroll to work -->
+    <main class="@(isChatPage ? "h-full flex-1 relative" : "")">
+        @RenderBody()
+    </main>
+
+    <!-- Footer: HIDDEN ON CHAT PAGE -->
+    @if (!isChatPage)
+    {
+        <footer class="border-t border-white/20 bg-cyan-950 text-gray-300 backdrop-blur-md">
+            <div class="mx-auto grid w-full grid-cols-1 gap-8 px-10 py-10 md:grid-cols-3">
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="mb-3 text-lg font-bold">ارتباط با ما</h3>
+                    <a href="tel:09121234567" class="flex items-center gap-2 py-3 text-sm text-gray-300 underline">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5 text-green-700"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.95.68l1.22 3.26a1 1 0 01-.27 1.06l-2.12 2.12a16.001 16.001 0 006.36 6.36l2.12-2.12a1 1 0 011.06-.27l3.26 1.22a1 1 0 01.68.95V19a2 2 0 01-2 2h-2C9.163 21 3 14.837 3 7V5z" /></svg>
+                        0912-123-4567
+                    </a>
+                    <a href="mailto:mail@aghayevakil.com" class="flex items-center gap-2 py-3 text-sm text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5 text-white"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12l-4 4-4-4m8-4l-4-4-4 4M4 4h16v16H4z" /></svg>
+                        mail@aghayevakil.com
+                    </a>
+                    <p class="flex items-center gap-2 py-3 text-sm text-gray-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5 text-yellow-500"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm0 0c-4.418 0-8 3.582-8 8h16c0-4.418-3.582-8-8-8z" /></svg>
+                        ایران، کرج، نرسیده به مهرشهر، هیابان اول
+                    </p>
+                </div>
+                <!-- Site Map -->
+                <div>
+                    <h3 class="mb-3 text-lg font-bold">نقشه سایت</h3>
+                    <ul class="space-y-2">
+                        <li><a asp-controller="Home" class="hover:text-blue-300">خانه</a></li>
+                        <li><a href="https://localhost:7044/Account/lawyerregister" class="hover:text-blue-300">ثبت نام وکیل</a></li>
+                        <li><a asp-action="Lawyers" asp-controller="Home" class="hover:text-blue-300">محصولات</a></li>
+                        <li><a asp-action="Aboutus" asp-controller="Home" class="hover:text-blue-300">درباره ما</a></li>
+                        <li><a asp-action="ContactUs" asp-controller="Home" class="hover:text-blue-300">تماس</a></li>
+                    </ul>
+                </div>
+                <!-- Branding -->
+                <div>
+                    <a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=672622&Code=jS6Rb4bgMw62qQpGKUnwyDoEnbZqpNDG'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=672622&Code=jS6Rb4bgMw62qQpGKUnwyDoEnbZqpNDG' alt='' style='cursor:pointer' code='jS6Rb4bgMw62qQpGKUnwyDoEnbZqpNDG'></a>
+                    <div class="mt-3 flex gap-4">
+                        <a href="#telegram" class="flex items-center justify-end gap-2 text-sm text-gray-300"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5 text-blue-500"><path d="M9.999 15.803l-.396 5.59c.566 0 .811-.244 1.106-.537l2.652-2.55 5.506 4.027c1.01.556 1.727.264 1.98-.935l3.59-16.89c.326-1.556-.56-2.163-1.54-1.786L1.49 9.49c-1.52.59-1.5 1.435-.26 1.82l5.64 1.76 13.08-8.24c.62-.42 1.19-.187.72.27L9.999 15.803z" /></svg></a>
+                        <a href="#instagram" class="flex items-center justify-end gap-2 text-sm text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6"><defs><linearGradient id="instagram-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f58529" /><stop offset="30%" stop-color="#feda77" /><stop offset="60%" stop-color="#dd2a7b" /><stop offset="100%" stop-color="#8134af" /></linearGradient></defs><path fill="url(#instagram-gradient)" d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 1.5A4.25 4.25 0 003.5 7.75v8.5A4.25 4.25 0 007.75 20.5h8.5a4.25 4.25 0 004.25-4.25v-8.5A4.25 4.25 0 0016.25 3.5h-8.5zm4.25 3.25a5.25 5.25 0 110 10.5 5.25 5.25 0 010-10.5zm0 1.5a3.75 3.75 0 100 7.5 3.75 3.75 0 000-7.5zm5.5-.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z" /></svg>
+                        </a>
+                        <a href="#whatsapp" class="flex items-center justify-end gap-2 text-sm text-gray-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" class="h-6 w-6"><path fill="#25D366" d="M16 3C9.373 3 4 8.373 4 15c0 2.64.82 5.09 2.23 7.14L4 29l7.07-2.23A11.94 11.94 0 0016 27c6.627 0 12-5.373 12-12S22.627 3 16 3zm0 21c-2.19 0-4.24-.64-5.97-1.85l-.43-.28-4.2 1.33 1.37-4.09-.28-.43A9.02 9.02 0 017 15c0-4.96 4.04-9 9-9s9 4.04 9 9-4.04 9-9 9z" /><path fill="#fff" d="M21.17 19.49c-.3-.15-1.77-.87-2.05-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.17.2-.35.23-.65.08-.3-.15-1.26-.46-2.4-1.47-.89-.79-1.49-1.77-1.67-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.38-.03-.53-.08-.15-.68-1.63-.93-2.23-.25-.6-.5-.52-.68-.53h-.58c-.2 0-.53.08-.8.38-.27.3-1.05 1.03-1.05 2.5s1.08 2.9 1.23 3.1c.15.2 2.13 3.25 5.15 4.55.72.31 1.28.5 1.72.64.72.23 1.38.2 1.9.12.58-.09 1.77-.72 2.02-1.42.25-.7.25-1.3.18-1.42-.07-.12-.27-.2-.57-.35z" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <p class="flex items-center justify-center py-10 text-sm text-gray-300">© 2025 همه حقوق محفوظ است</p>
+        </footer>
+    }
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/alpine.min.js"></script>
+    <script src="~/js/base.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/select2/select2.min.js"></script>
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="~/js/my.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

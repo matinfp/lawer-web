@@ -1,0 +1,61 @@
+﻿@using Application.Models
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+<div class="font-display flex min-h-screen items-center justify-center bg-cover bg-fixed bg-no-repeat">
+    <div class="bg-opacity-90 w-full max-w-lg rounded-2xl bg-white p-8 shadow-2xl backdrop-blur-sm">
+        <h2 class="mb-6 text-center text-3xl font-bold text-gray-800">ثبت‌نام </h2>
+        <div asp-validation-summary="All" class="mb-4 text-red-600"></div>
+        <form asp-action="Register" method="post" class="space-y-4">
+            <div>
+                <label class="font-display mb-1 block text-gray-700">نام</label>
+                <input asp-for="Name"  type="text" class="w-full rounded-lg border p-3 focus:ring focus:ring-green-300" placeholder="نام">
+                <span asp-validation-for="Name" class="text-red-600"></span>
+
+            </div>
+            <div>
+                <label class="mb-1 block text-gray-700">نام خانوادگی</label>
+                <input asp-for="LastName" type="text" class="w-full rounded-lg border p-3 focus:ring focus:ring-green-300" placeholder="نام خانوادگی">
+                <span asp-validation-for="LastName" class="text-red-600"></span>
+            </div>
+            <div>
+                <label class="mb-1 block text-gray-700">شماره تماس</label>
+                <input asp-for="PhoneNumber" type="tel" class="w-full rounded-lg border p-3 focus:ring focus:ring-green-300" placeholder="مثلاً 09123456789">
+                <span asp-validation-for="PhoneNumber" class="text-red-600"></span>
+            </div>
+            <div>
+                <label class="mb-1 block text-gray-700">ایمیل</label>
+                <input asp-for="Email" type="email" class="w-full rounded-lg border p-3 focus:ring focus:ring-green-300" placeholder="ایمیل">
+                <span asp-validation-for="Email" class="text-red-600"></span>
+            </div>
+            <div>
+                <label class="mb-1 block text-gray-700">کلمه‌عبور</label>
+                <input asp-for="Password" type="password" class="w-full rounded-lg border p-3 focus:ring focus:ring-green-300" placeholder="رمز عبور">
+                <span asp-validation-for="Password" class="text-red-600"></span>
+            </div>
+            <div>
+                <label class="mb-1 block text-gray-700">تکرار کلمه‌عبور</label>
+                <input asp-for="ConfrimPassword" type="password" class="w-full rounded-lg border p-3 focus:ring focus:ring-green-300" placeholder="رمز عبور">
+                <span asp-validation-for="ConfrimPassword" class="text-red-600"></span>
+            </div>
+            <div class="flex items-center">
+                <input id="link-checkbox"
+                       type="checkbox"
+                       value="agree"
+                       required
+                       class="border-default-medium bg-neutral-secondary-medium h-4 w-4 rounded-xs border focus:ring-brand-soft focus:ring-2">
+                <label for="link-checkbox"
+                       class="text-heading ms-2 text-sm font-medium select-none">
+                    من با <a asp-action="terms" asp-controller="Account" class="text-fg-brand hover:underline">قوانین و مقررات موافق هستم</a>.
+                </label>
+            </div>
+
+            <button type="submit" class="w-full rounded-lg bg-green-600 py-3 font-semibold text-white transition hover:bg-green-700">ثبت نام</button>
+            <p class="mt-4 text-center text-gray-700">
+                قبلاً ثبت‌نام کرده‌اید؟
+                <a asp-action="Login" asp-controller="Account" class="font-semibold text-green-700 hover:underline">ورود</a>
+            </p>
+        </form>
+    </div>
+</div>

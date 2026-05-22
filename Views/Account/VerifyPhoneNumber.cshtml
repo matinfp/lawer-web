@@ -1,0 +1,122 @@
+﻿@using Application.Models
+@model VerifyPhoneNumberViewModel
+@{
+    ViewData["Title"] = "VerifyPhoneNumber";
+}
+@* 
+<form asp-action="VerifyPhoneNumber" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" name="Code" id="Code" />
+
+    <input type="hidden" name="phoneNumber" value="@Model.PhoneNumber" />
+    <input type="hidden" name="userId" value="@Model.UserId" />
+    <input type="hidden" name="lawyer" value="@Model.Lawyer" />
+    <input type="hidden" asp-for="UserId" readonly />
+
+
+    <div class="form-group">
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="from-control" readonly />
+    </div>
+    
+    <div class="form-group">
+        <label asp-for="Code"></label>
+        <input asp-for="Code" class="from-control" />
+        <span asp-validation-for="Code" class="text-danger"></span>
+
+    </div>
+    <button type="submit" class="btn btnalert-primary">verify</button>
+
+
+</form>
+ *@
+<div dir="ltr" class="min-h-screen items-center justify-center p-4">
+    <div class="w-full max-w-md rounded-xl bg-white p-6 shadow-md sm:p-8">
+        <h2 class="mb-4 text-center text-2xl font-bold text-green-600 sm:text-3xl">
+            تایید شماره تلفن
+        </h2>
+        <p class="mb-6 text-center text-sm text-gray-600 sm:text-base">
+            لطفاً کد ۶ رقمی ارسال شده به شماره شما را وارد کنید
+        </p>
+
+        <form id="otpForm flex justify-center item-center">
+            <div class="mb-4 flex justify-between gap-2 sm:gap-3">
+                <input maxlength="1" class="otp" />
+                <input maxlength="1" class="otp" />
+                <input maxlength="1" class="otp" />
+                <input maxlength="1" class="otp" />
+                <input maxlength="1" class="otp" />
+                <input maxlength="1" class="otp" />
+            </div>
+            <input asp-for="Code" type="hidden" id="Code" name="Code" />
+            <input type="hidden" id="userId" asp-for="UserId" readonly />
+
+
+       </form>
+    </div>
+</div>
+@section Scripts{
+        <script>
+            const inputs = document.querySelectorAll(".otp");
+            const hiddenInput = document.getElementById("Code");
+
+            // حرکت بین فیلدها و Backspace
+            inputs.forEach((input, index) => {
+                input.classList.add("w-12","h-12","text-center","border","border-gray-300","rounded-lg",
+                                    "focus:outline-none","focus:ring-2","focus:ring-green-500","text-xl");
+
+                input.addEventListener("input", () => {
+                    // حرکت به فیلد بعدی
+                    if(input.value.length === 1 && index < inputs.length - 1){
+                        inputs[index+1].focus();
+                    }
+
+                    // وقتی همه فیلدها پر شدند → ارسال خودکار
+                    if(Array.from(inputs).every(i => i.value.length === 1)){
+                        sendCode();
+                    }
+                });
+
+                input.addEventListener("keydown", (e) => {
+                    // مدیریت Backspace
+                    if(e.key === "Backspace" && input.value === "" && index > 0){
+                        inputs[index-1].focus();
+                        inputs[index-1].value = "";
+                        e.preventDefault();
+                    }
+                });
+            });
+
+            // ارسال خودکار به سرور
+            function sendCode(){
+                hiddenInput.value = Array.from(inputs).map(i=>i.value).join("");
+
+                const data = {
+               code: document.getElementById("Code").value,
+                   userId: document.getElementById("userId").value,
+                    // lawyer: document.getElementById("lawyer").value
+                };
+
+            fetch('/Account/VerifyPhoneNumber', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if(res.success){
+                        alert("کد تایید شد!");
+                           window.location.href = res.redirectUrl; // اینجا ریدایرکت انجام میشه
+                    } else {
+                        alert(res.message || "کد اشتباه است");
+                    }
+                })
+                .catch(err => console.error(err));
+            }
+        </script>
+
+
+
+}

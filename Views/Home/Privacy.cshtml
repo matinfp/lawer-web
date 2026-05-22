@@ -1,0 +1,103 @@
+﻿@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+
+<div id="online-lawyers">
+    <h3>وکلا آنلاین</h3>
+    <div id="lawyer-list"></div>
+</div>
+
+
+
+
+
+<h2>test new</h2>
+<div id="online-lawyers">
+    <h3 class="mb-2 text-lg font-bold">وکلا آنلاین</h3>
+    <div id="lawyer-list" class="flex flex-wrap gap-4"></div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
+    <script>
+  
+         const connection = new signalR.HubConnectionBuilder()
+        .withUrl("https://localhost:7044/hubs/onlineLawyers", { withCredentials: true })
+        .build();
+
+
+        connection.start()
+            .then(() => console.log("Connected to hub"))
+            .catch(err => console.error(err));
+
+        connection.on("OnlineLawyersUpdated", async (ids) => {
+        // ids ممکنه یک آرایه باشه یا collection
+        const arr = Array.from(ids || []);
+        if (arr.length === 0) {
+        document.getElementById('lawyer-list').innerHTML = '<p>هیچ وکیلی آنلاین نیست</p>';
+        return;
+        }
+
+
+        // فراخوانی API برای گرفتن دیتا/api/lawyers/online
+        const res = await fetch('https://localhost:7044/api/lawyers/online', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(arr)
+        });
+        const data = await res.json();
+        renderLawyers(data);
+        });
+
+
+        function renderLawyers(lawyers) {
+        const container = document.getElementById('lawyer-list');
+        container.innerHTML = '';
+        lawyers.forEach(l => {
+              const specialitiesHtml = l.specialization?.length
+            ? l.specialization.map(item => `
+                <span class="rounded-full bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 shadow-sm">
+                    ${item.title}
+                </span>
+            `).join('')
+            : '<span class="text-xs text-gray-400">تخصصی ثبت نشده</span>';
+        const el = document.createElement('div');
+        el.className = 'h-96 w-64 flex-none items-center rounded-lg border border-gray-200 p-4 text-center shadow-sm hover:shadow-md';
+        el.innerHTML = `
+        <p class="inline-block rounded-md bg-green-100 px-3 py-1 text-sm font-semibold text-green-700 shadow transition hover:shadow-green-400">
+             آنلاین
+        </p>
+           <a href="/Lawyer/${l.lawyerSlug}">
+           <img src="/api/file/getfile?fileName =${l.photo}" alt="مشکل در نمایش عکس"
+        class="mx-auto h-24 w-24 rounded-full border-2 border-indigo-200 object-cover shadow-sm transition hover:scale-105"
+        onerror="this.src='/images/lawyers/avatar.webp'" />
+           </a>
+          <h2 class="mt-3 text-base font-bold text-gray-800">
+          <a href="/Lawyer/${l.lawyerSlug}" class="hover:text-blue-600">${l.fullName}</a>
+          </h2>
+        <p class="mt-2 text-sm text-yellow-500">⭐ <span class="text-gray-500">(${l.ratingAverage} نظر)</span></p>
+        <p class="text-sm text-gray-700">مشاوره موفق: <span class="font-semibold">${l.caseCount}</span></p>
+        <p class="text-sm text-gray-700">نوع وکیل: <span class="font-semibold">${l.caseCount}</span></p>
+        <div class="mt-3 flex flex-wrap justify-center gap-2">
+                ${specialitiesHtml}
+            </div>
+        <p class="mt-3 w-full text-left text-sm font-semibold text-indigo-600">200000 تومان</p>
+                <a href="/Lawyer/${l.lawyerSlug}"
+           class="mt-4 block w-full rounded-lg bg-green-600 py-2 text-center font-semibold text-white transition hover:bg-green-700">
+            دریافت مشاوره
+        </a>
+        `;
+        container.appendChild(el);
+        });
+        }
+
+    </script>
+}
+
+
+
+

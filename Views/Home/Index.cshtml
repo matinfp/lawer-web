@@ -1,0 +1,522 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="relative overflow-hidden text-white backdrop-blur-md lg:py-16" dir="rtl">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 lg:grid-cols-2">
+
+        <div class="order-1 flex justify-center lg:order-2">
+            <div class="relative overflow-hidden rounded-2xl transition-transform duration-500 hover:scale-[1.02]">
+                <img src="/images/lawyers/main-lawyer.png" alt="مشاور حقوقی"
+                     class="hidden h-[380px] w-full object-contain sm:h-[460px] md:block">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
+        </div>
+
+        <div class="order-2 text-center lg:order-1 lg:text-right">
+            <h1 class="text-3xl leading-snug font-bold sm:text-4xl md:text-5xl">
+                <span class="mb-2 block text-blue-700">مشاوره حقوقی آنلاین و تلفنی ۲۴ ساعته و تضمینی!</span>
+                <span class="font-black text-black">آقای وکیل</span>
+            </h1>
+
+            <ul class="mt-8 flex flex-col items-center space-y-4 text-black lg:items-start">
+                <li class="flex items-center gap-3 text-lg">
+                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500 text-xs text-white">✓</span>
+                    <span>پاسخگویی سریع</span>
+                </li>
+                <li class="flex items-center gap-3 text-lg">
+                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500 text-xs text-white">✓</span>
+                    <span>مشاوره تخصصی و دقیق</span>
+                </li>
+                <li class="flex items-center gap-3 text-lg">
+                    <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500 text-xs text-white">✓</span>
+                    <span>رضایت ۹۸٪ کاربران</span>
+                </li>
+            </ul>
+
+            <div class="mt-10 flex flex-col items-center gap-6 lg:items-start">
+
+                <div class="flex w-full flex-wrap items-center justify-center gap-4 lg:justify-start">
+                    <button onclick="document.querySelector('#DataContainer').scrollIntoView({ behavior: 'smooth' })"
+                            class="all w-full rounded-xl border border-green-700 bg-green-600 px-8 py-4 font-bold text-white transition hover:bg-green-700 hover:shadow-lg active:scale-95 sm:w-auto">
+                        مشاهده وکلای سایت
+                    </button>
+
+                    <div id="priceBox" class="flex flex-col justify-center rounded-xl border border-black/10 bg-white/40 px-6 py-2 backdrop-blur-sm">
+                        <span class="text-xs text-gray-500">هزینه از:</span>
+                        <span id="minPrice" class="font-yekan text-lg font-bold text-black">٣٢,٠٤٠ تومان</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+                    <div class="rounded-xl border border-black/10 bg-white/40 px-4 py-3 backdrop-blur-sm">
+                        <span class="text-sm text-gray-500">تعداد مشاوره‌ها:</span>
+                        <span class="font-bold text-black">۲۷۱,۲۸۹</span>
+                    </div>
+                    <div class="rounded-xl border border-black/10 bg-white/40 px-4 py-3 backdrop-blur-sm">
+                        <span class="text-sm text-gray-500">رضایت:</span>
+                        <span class="font-bold text-black">۹۸٪</span>
+                    </div>
+
+                    <div class="mr-2 flex flex-row-reverse items-center">
+                        <img src="https://i.pravatar.cc/48?img=11" alt="وکیل ۱" class="-ml-3 h-10 w-10 rounded-full border-2 border-white shadow-sm">
+                        <img src="https://i.pravatar.cc/48?img=12" alt="وکیل ۲" class="-ml-3 h-10 w-10 rounded-full border-2 border-white shadow-sm">
+                        <img src="https://i.pravatar.cc/48?img=13" alt="وکیل ۳" class="-ml-3 h-10 w-10 rounded-full border-2 border-white shadow-sm">
+                        <img src="https://i.pravatar.cc/48?img=14" alt="وکیل ۴" class="h-10 w-10 rounded-full border-2 border-white shadow-sm">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <section id="featuredProduct" class="mx-auto max-w-4xl p-6">
+  <h2 class="mb-4 text-xl font-bold text-white">محصول ویژه</h2>
+  <div id="featuredCard" class="card-glass-color rounded p-4 shadow transition hover:scale-105 hover:shadow-lg"></div>
+</section> -->
+
+<section id="products" class="relative px-4 py-4">
+    <div class="px-4 py-8 md:py-12">
+        <!-- Main Title: Responsive sizing with modern text-balance -->
+        <h2 class="mb-4 text-center text-xl leading-tight font-extrabold text-slate-800 sm:text-2xl md:text-3xl lg:text-4xl">
+            مشاوره حقوقی آنلاین و تلفنی با
+            <span class="bg-gradient-to-r from-blue-700 to-blue-500 bg-clip-text text-transparent">
+                بهترین وکلای ۲۴ ساعته
+            </span>
+        </h2>
+
+        <!-- Subtitle: Centered with max-width for better readability on desktop -->
+        <h6 class="mx-auto max-w-2xl text-center text-sm leading-relaxed text-slate-500 md:text-base lg:text-lg">
+            سریع و بدون اتلاف وقت از میان وکلای آنلاین سایت فرد مورد نظر خود را انتخاب و
+            <span class="font-medium text-slate-700">مشاوره حقوقی تلفنی آنلاین  </span>
+            را دریافت کنید.
+        </h6>
+    </div>
+
+
+    <div class="px-6 py-12" dir="rtl">
+        <div class="mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-10">
+
+                <!-- Card 1 -->
+                <div class="group relative rounded-2xl border border-gray-100 bg-white/40 p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-blue-50 text-blue-700 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                        <svg class="h-8 w-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20 14h-2.722L11 20.278a5.511 5.511 0 0 1-.9.722H20a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1ZM9 3H4a1 1 0 0 0-1 1v13.5a3.5 3.5 0 1 0 7 0V4a1 1 0 0 0-1-1ZM6.5 18.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2ZM19.132 7.9 15.6 4.368a1 1 0 0 0-1.414 0L12 6.55v9.9l7.132-7.132a1 1 0 0 0 0-1.418Z" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900">خدمات حقوقی</h4>
+                    <p class="mt-3 text-sm leading-relaxed text-gray-600 md:text-base">
+                        رزرو مشاوره و ارائه خدمات اوراق قضائی و قبول وکالت بصورت
+                        کاملا ساختار یافته و هدایت شده.
+                    </p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative rounded-2xl border border-gray-100 bg-white/40 p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-green-50 text-green-700 transition-colors group-hover:bg-green-600 group-hover:text-white">
+                        <svg class="h-8 w-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M10.83 5a3.001 3.001 0 0 0-5.66 0H4a1 1 0 1 0 0 2h1.17a3.001 3.001 0 0 0 5.66 0H20a1 1 0 1 0 0-2h-9.17ZM4 11h9.17a3.001 3.001 0 0 1 5.66 0H20a1 1 0 1 1 0 2h-1.17a3.001 3.001 0 0 1-5.66 0H4a1 1 0 1 1 0-2Zm1.17 6H4a1 1 0 1 0 0 2h1.17a3.001 3.001 0 0 0 5.66 0H20a1 1 0 1 0 0-2h-9.17a3.001 3.001 0 0 0-5.66 0Z" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900">کنترل کیفیت و داوری</h4>
+                    <p class="mt-3 text-sm leading-relaxed text-gray-600 md:text-base">
+                        با نظارت و کنترل فرایندهای کاری همواره پشتیبان هزینه و
+                        زمان موکلین خواهیم بود.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative rounded-2xl border border-gray-100 bg-white/40 p-8 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                    <div class="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl bg-orange-50 text-orange-700 transition-colors group-hover:bg-orange-600 group-hover:text-white">
+                        <svg class="h-8 w-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M18.458 3.11A1 1 0 0 1 19 4v16a1 1 0 0 1-1.581.814L12 16.944V7.056l5.419-3.87a1 1 0 0 1 1.039-.076ZM22 12c0 1.48-.804 2.773-2 3.465v-6.93c1.196.692 2 1.984 2 3.465ZM10 8H4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h6V8Zm0 9H5v3a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-3Z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900">هزینه‌های تضمین شده ثابت</h4>
+                    <p class="mt-3 text-sm leading-relaxed text-gray-600 md:text-base">
+                        ما خدمات را بصورت استاندارد با اعلام دقیق هزینه و شرایط
+                        دریافت برای موکلین شفاف کرده‌ایم.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="relative">
+
+        <!-- Filter Container (loaded dynamically) -->
+        <div dir="rtl">
+            <div class="mx-auto mb-8 max-w-7xl px-4 py-5">
+
+                <div class="rounded-2xl border border-white/20 bg-white/40 p-2 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] backdrop-blur-md">
+
+                    <div class="no-scrollbar flex flex-nowrap items-center gap-3 overflow-x-auto px-1 py-1 lg:flex-wrap lg:overflow-visible">
+
+                        <div class="relative min-w-[130px] flex-shrink-0 lg:flex-1">
+                            <select id="sortByPrice" class="w-full cursor-pointer appearance-none rounded-xl border-none bg-white/80 px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-white focus:ring-2 focus:ring-green-500">
+                                <option value="">قیمت: همه</option>
+                                <option value="asc">ارزان‌ترین</option>
+                                <option value="desc">گران‌ترین</option>
+                            </select>
+                        </div>
+
+                        <div class="relative min-w-[130px] flex-shrink-0 lg:flex-1">
+                            <select id="sortByRating" class="w-full cursor-pointer appearance-none rounded-xl border-none bg-white/80 px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-white focus:ring-2 focus:ring-green-500">
+                                <option value="">امتیاز: همه</option>
+                                <option value="desc">بالاترین</option>
+                                <option value="asc">پایین‌ترین</option>
+                            </select>
+                        </div>
+
+                        <div class="relative min-w-[130px] flex-shrink-0 lg:flex-1">
+                            <select id="filterBySpecialty" class="w-full cursor-pointer appearance-none rounded-xl border-none bg-white/80 px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-white focus:ring-2 focus:ring-green-500">
+                                <option value="">تخصص: همه</option>
+                                <option value="حقوق خانواده">حقوق خانواده</option>
+                                <option value="حقوق کیفری">حقوق کیفری</option>
+                                <option value="حقوق ملکی">حقوق ملکی</option>
+                                <option value="حقوق تجاری">حقوق تجاری</option>
+                                <option value="حقوق کار">حقوق کار</option>
+                                <option value="حقوق مالیاتی">حقوق مالیاتی</option>
+                            </select>
+                        </div>
+
+                        <div class="relative min-w-[130px] flex-shrink-0 lg:flex-1">
+                            <select id="filterByExperience" class="w-full cursor-pointer appearance-none rounded-xl border-none bg-white/80 px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-white focus:ring-2 focus:ring-green-500">
+                                <option value="">سابقه: همه</option>
+                                <option value="1">۱+ سال</option>
+                                <option value="3">۳+ سال</option>
+                                <option value="5">۵+ سال</option>
+                                <option value="10">۱۰+ سال</option>
+                            </select>
+                        </div>
+
+                        <div class="relative min-w-[130px] flex-shrink-0 lg:flex-1">
+                            <select id="filterByCity" class="w-full cursor-pointer appearance-none rounded-xl border-none bg-white/80 px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-white focus:ring-2 focus:ring-green-500">
+                                <option value="">شهر: همه</option>
+                                <option value="تهران">تهران</option>
+                                <option value="کرج">کرج</option>
+                                <option value="شیراز">شیراز</option>
+                                <option value="اصفهان">اصفهان</option>
+                            </select>
+                        </div>
+
+                        <button id="resetFilters" class="flex-shrink-0 rounded-xl bg-gray-100 px-5 py-2.5 text-sm font-bold whitespace-nowrap text-gray-600 transition hover:bg-red-50 hover:text-red-600 active:scale-95">
+                            بازنشانی
+                        </button>
+
+                        <div class="hidden flex-shrink-0 items-center gap-2 rounded-xl bg-green-600 px-5 py-2.5 font-bold whitespace-nowrap text-white shadow-md lg:flex">
+                            <span id="resultCount">0</span>
+                            <span class="text-xs opacity-90">نتیجه</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-2 flex items-center justify-between border-t border-gray-100/50 px-2 pt-2 lg:hidden">
+                        <span class="text-xs text-gray-500">فیلترهای انتخابی</span>
+                        <div class="flex items-center gap-1.5 rounded-lg bg-green-100 px-3 py-1 text-green-700">
+                            <span id="resultCount-mobile" class="text-sm font-bold">0</span>
+                            <span class="text-[10px]">نتیجه</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <style>
+            /* Hide scrollbar for Chrome, Safari and Opera */
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+            /* Hide scrollbar for IE, Edge and Firefox */
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        </style>        <!-- Product List -->
+        <h1 class="text-center font-bold">وکلای آنلاین</h1>
+
+        <div id="onlineLawyersList" class="flex gap-6 overflow-x-auto p-4" style="scroll-behavior:smooth;">
+            <div id="lawyer-list"> 
+            </div>
+            
+        </div>
+        <!-- Container -->
+        <div id="DataContainer">
+        </div>
+       
+
+    </div>
+    <a asp-controller="Home"
+       asp-action="LawyersList"
+       class="animate-flash-green mt-5 block w-auto rounded-lg bg-green-700 py-2 text-center font-semibold text-white transition ease-in-out hover:scale-105 active:scale-95">
+        مشاهده همه وکلا
+    </a>
+</section>
+
+<section class="mx-auto mt-12 mb-10 max-w-4xl space-y-4 rounded-[2rem] border border-gray-200/50 bg-white/40 p-3 shadow-xl backdrop-blur-md" dir="rtl">
+
+    <div class="px-2 py-4">
+        <h1 class="text-center text-xl font-black tracking-tight text-gray-800 md:text-2xl">
+            سوالات متداول خود را در این قسمت پیدا کنید !
+        </h1>
+        <div class="mx-auto mt-2 h-1 w-20 rounded-full bg-blue-500/20"></div>
+    </div>
+
+    <div class="space-y-3">
+        <div class="group rounded-[1.5rem] border border-gray-100 bg-white/60 px-5 py-4 shadow-sm transition-all duration-300 hover:bg-white/80 hover:shadow-md">
+            <button class="accordion-header flex w-full cursor-pointer items-center justify-between gap-4 outline-none">
+                <span class="font-yekan text-right text-base font-bold text-gray-700 transition-colors group-hover:text-blue-600 md:text-lg">
+                    سوالات متداول ۱
+                </span>
+                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-100 transition-colors group-hover:bg-blue-50">
+                    <span class="text-xs transition-transform duration-500 group-hover:rotate-180">⬇️</span>
+                </div>
+            </button>
+            <div class="accordion-content relative max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                <div class="mt-4 border-t border-gray-100/50 pt-4">
+                    <p class="text-sm leading-relaxed text-gray-600 md:text-base">
+                        اینجا متن طولانی شما قرار می‌گیرد برای سوال اول. این متن می‌تواند شامل چندین خط توضیحات باشد
+                        که در حالت بسته مخفی است و با کلیک روی عنوان باز می‌شود.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="group rounded-[1.5rem] border border-gray-100 bg-white/60 px-5 py-4 shadow-sm transition-all duration-300 hover:bg-white/80 hover:shadow-md">
+            <button class="accordion-header flex w-full cursor-pointer items-center justify-between gap-4 outline-none">
+                <span class="font-yekan text-right text-base font-bold text-gray-700 transition-colors group-hover:text-blue-600 md:text-lg">
+                    سوالات متداول ۲
+                </span>
+                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-100 transition-colors group-hover:bg-blue-50">
+                    <span class="text-xs transition-transform duration-500 group-hover:rotate-180">⬇️</span>
+                </div>
+            </button>
+            <div class="accordion-content relative max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                <div class="mt-4 border-t border-gray-100/50 pt-4">
+                    <p class="text-sm leading-relaxed text-gray-600 md:text-base">
+                        اینجا متن طولانی شما قرار می‌گیرد برای سوال دوم. می‌توانید توضیحات بیشتری اضافه کنید
+                        و هر بخش مستقل باز و بسته شود.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="group rounded-[1.5rem] border border-gray-100 bg-white/60 px-5 py-4 shadow-sm transition-all duration-300 hover:bg-white/80 hover:shadow-md">
+            <button class="accordion-header flex w-full cursor-pointer items-center justify-between gap-4 outline-none">
+                <span class="font-yekan text-right text-base font-bold text-gray-700 transition-colors group-hover:text-blue-600 md:text-lg">
+                    سوالات متداول ۳
+                </span>
+                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-100 transition-colors group-hover:bg-blue-50">
+                    <span class="text-xs transition-transform duration-500 group-hover:rotate-180">⬇️</span>
+                </div>
+            </button>
+            <div class="accordion-content relative max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                <div class="mt-4 border-t border-gray-100/50 pt-4">
+                    <p class="text-sm leading-relaxed text-gray-600 md:text-base">
+                        اینجا متن طولانی شما قرار می‌گیرد برای سوال سوم. هر آیتم مستقل عمل می‌کند و می‌تواند
+                        متن متفاوتی داشته باشد.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ========================================== -->
+<!-- WELCOME POPUP MODAL (Modern & Mobile First) -->
+<!-- ========================================== -->
+<div id="welcomeModal" class="relative z-[9999] hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+
+    <!-- Backdrop (Dark overlay) -->
+    <div id="welcomeBackdrop"
+         class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm opacity-0 transition-opacity duration-500 ease-out"
+         onclick="closeWelcomeModal()"></div>
+
+    <!-- Modal Positioner -->
+    <div class="fixed inset-0 z-10 overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-0 md:items-center md:p-4 text-center">
+
+            <!-- Modal Panel -->
+            <div id="welcomePanel"
+                 class="relative transform overflow-hidden bg-white text-right shadow-2xl transition-all duration-500 ease-in-out
+                        w-full max-w-md
+                        rounded-t-[2.5rem] md:rounded-[2.5rem]
+                        translate-y-full opacity-0 md:translate-y-10 md:scale-95">
+
+                <!-- Mobile Drag Handle (Visual Cue) -->
+                <div class="flex justify-center pt-4 pb-2 md:hidden" onclick="closeWelcomeModal()">
+                    <div class="w-12 h-1.5 bg-gray-200 rounded-full"></div>
+                </div>
+
+                <!-- Close Button (Desktop & Mobile) -->
+                <button onclick="closeWelcomeModal()" class="absolute top-5 left-5 rounded-full bg-gray-50 p-2 text-gray-400 hover:bg-red-50 hover:text-red-500 transition-colors z-20">
+                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Content -->
+                <div class="p-8 pb-10 pt-2 md:pt-8 flex flex-col items-center text-center">
+
+                    <!-- Icon / Image -->
+                    <div class="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-green-50 text-green-600 shadow-inner ring-4 ring-green-50/50">
+                        <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+
+                    <!-- Texts -->
+                    <h3 class="text-2xl font-black text-gray-900 mb-3 font-yekan">
+                        به <span class="text-green-600">آقای وکیل</span> خوش آمدید!
+                    </h3>
+
+                    <p class="text-gray-500 text-sm leading-relaxed mb-8 max-w-[280px]">
+                        برای دریافت مشاوره حقوقی تخصصی، همین حالا می‌توانید با بهترین وکلای پایه یک دادگستری صحبت کنید.
+                    </p>
+
+                    <!-- Action Button -->
+                    <button onclick="closeWelcomeModal()"
+                            class="w-full rounded-2xl bg-green-600 py-4 mb-5 text-base font-bold text-white shadow-lg shadow-green-600/20 transition-all hover:bg-green-700 hover:shadow-green-700/30 active:scale-95">
+                        بستن
+                    </button>
+                    <a asp-action="Index" asp-controller="VakilDigi"
+                       class="w-full rounded-2xl bg-green-600 py-4 text-base font-bold text-white shadow-lg shadow-green-600/20 transition-all hover:bg-green-700 hover:shadow-green-700/30 active:scale-95">
+                        خرید اشتراک وکیل دیجی
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js" asp-append-version="true"></script>
+
+            <script>
+                   document.addEventListener("DOMContentLoaded",async function(){
+                            await GetList(1);
+                        });
+
+
+                async function GetList(page){
+                    const searchEl =document.getElementById("searchInput");
+                    const searchTxt= searchEl == null ? "" : searchEl.value;
+
+                    // const numPgEl =document.getElementById("numberOfItems");
+                    const numPgEl =10
+
+                    const numOfPage= numPgEl == null ? 4 : numPgEl.value;
+                    var response = await fetch("/Home/GetList?page="+page + "&search="+searchTxt +"&pageSize="+numOfPage);
+                    if(response.ok){
+                        var res=await response.text();
+                        var container=document.getElementById("DataContainer");
+                        container.innerHTML =res;
+                    }
+
+                }
+
+
+                 const connection = new signalR.HubConnectionBuilder()
+                .withUrl("http://lawyer.aghayevakil.com/hubs/onlineLawyers", { withCredentials: true })
+                .build();
+
+
+                connection.start()
+                    .then(() => console.log("Connected to hub"))
+                    .catch(err => console.error(err));
+
+                connection.on("OnlineLawyersUpdated", async (ids) => {
+                // ids ممکنه یک آرایه باشه یا collection
+                const arr = Array.from(ids || []);
+                if (arr.length === 0) {
+                document.getElementById('lawyer-list').innerHTML = '<p>هیچ وکیلی آنلاین نیست</p>';
+                return;
+                }
+
+
+                // فراخوانی API برای گرفتن دیتا/api/lawyers/online
+                const res = await fetch('http://Lawyer.aghayevakil.com/api/lawyers/online', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(arr)
+                });
+                const data = await res.json();
+                renderLawyers(data);
+                });
+
+
+            function renderLawyers(lawyers) {
+            const container = document.getElementById('onlineLawyersList');
+            container.innerHTML = '';
+
+            lawyers.forEach(l => {
+
+                const specialitiesHtml = l.specialization?.length
+                    ? l.specialization.map(item => `
+                        <span class="rounded-full bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 shadow-sm">
+                            ${item.title}
+                        </span>
+                    `).join('')
+                    : '<span class="text-xs text-gray-400">تخصصی ثبت نشده</span>';
+
+                const el = document.createElement('div');
+
+                // ⭐ کلید افقی شدن اینجاست
+                        el.className = `h-96 w-64 flex-none items-center rounded-lg border border-gray-200 p-4 text-center shadow-sm hover:shadow-md`;
+
+                el.innerHTML = `
+                    <p class="inline-block rounded-md bg-green-100 px-3 py-1 text-sm font-semibold text-green-700">
+                        آنلاین
+                    </p>
+
+                    <a href="/Lawyer/${l.lawyerSlug}">
+                        <img src="/api/file/getfile?fileName=${l.photo}"
+                             class="mx-auto mt-3 h-24 w-24 rounded-full border object-cover"
+                             onerror="this.src='/images/lawyers/avatar.webp'" />
+                    </a>
+
+                    <h2 class="mt-3 text-base font-bold">
+                        <a href="/Lawyer/${l.lawyerSlug}" class="hover:text-blue-600">
+                            ${l.fullName}
+                        </a>
+                    </h2>
+
+                    <p class="mt-1 text-sm text-yellow-500">
+                        ⭐ <span class="text-gray-500">(${l.ratingAverage} نظر)</span>
+                    </p>
+
+                    <p class="mt-1 text-sm text-gray-700">
+                        مشاوره موفق: <span class="font-semibold">${l.caseCount}</span>
+                    </p>
+
+                    <div class="mt-3 flex flex-wrap justify-center gap-2">
+                        ${specialitiesHtml}
+                    </div>
+
+                    <a href="/Lawyer/${l.lawyerSlug}"
+                       class="mt-4 block rounded-lg bg-green-600 py-2 font-semibold text-white hover:bg-green-700">
+                        دریافت مشاوره
+                    </a>
+                `;
+
+                container.appendChild(el);
+            });
+        }
+
+
+                     
+
+
+
+
+
+
+            </script>
+           
+
+
+}
