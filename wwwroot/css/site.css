@@ -1,0 +1,664 @@
+﻿@import "tailwindcss";
+
+@font-face {
+    font-family: Yekan;
+    src: url('../fonts/Yekan.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@theme {
+    --font-display: "Yekan", Tahoma, Arial;
+}
+
+
+/* ---------------- Animations ---------------- */
+@keyframes wiggle {
+
+    0%, 100% {
+        transform: rotate(-5deg);
+    }
+
+    50% {
+        transform: rotate(5deg);
+    }
+}
+
+/* ---------------- Comment Animations ---------------- */
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+}
+
+/* Spinning loader */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+.wiggle {
+    animation: wiggle 0.3s ease-in-out;
+}
+
+
+main {
+    padding-top: 80px;
+    /* adjust to your navbar height */
+}
+
+/* ---------------- Global ---------------- */
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e5e7eb 60%, #0a950f 100%);
+}
+
+.rtl {
+    direction: rtl;
+    unicode-bidi: bidi-override;
+}
+
+
+/* ---------------- Navbar ---------------- */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    background: rgb(255, 255, 255);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border-bottom: 1px solid rgb(255, 255, 255);
+    color: #fff;
+}
+
+    nav h1 {
+        color: #f5d76e;
+        /* gold accent */
+    }
+
+    nav a {
+        color: #111;
+    }
+
+
+/* ---------------- Buttons ---------------- */
+.btn-glass-red {
+    background: rgba(220, 38, 38, 0.3);
+    color: #fff;
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border: 1px solid rgba(220, 38, 38, 0.5);
+    transition: all 0.3s ease;
+}
+
+    .btn-glass-red:hover {
+        background: rgba(220, 38, 38, 0.5);
+        border-color: rgba(220, 38, 38, 0.8);
+    }
+
+/* Optional: Transparent red button for logout or login */
+.btn-transparent-red {
+    background: transparent;
+    color: #dc2626;
+    border: 1px solid rgba(220, 38, 38, 0.5);
+    backdrop-filter: blur(6px) saturate(150%);
+    -webkit-backdrop-filter: blur(6px) saturate(150%);
+    transition: all 0.3s ease;
+}
+
+    .btn-transparent-red:hover {
+        background: rgba(220, 38, 38, 0.1);
+        color: #ef4444;
+        border-color: rgba(220, 38, 38, 0.8);
+    }
+
+
+
+/* Premium glassy blue product card */
+.card-glass-color {
+    background: rgba(255, 255, 255, 0.264);
+    /* Tailwind blue-500 with 15% opacity */
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+    border: 2px solid rgba(0, 0, 0, 0.25);
+}
+
+/* Cart dropdown with same glass effect */
+.cart-glass-blue {
+    background: rgba(59, 130, 246, 0.2);
+    /* slightly stronger tint */
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.liquid-glass {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none; /* IE/Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+
+/* ---------------- Star Rating ---------------- */
+#stars .star {
+    transition: all 0.2s ease;
+}
+
+    #stars .star:hover {
+        transform: scale(1.2);
+    }
+
+    #stars .star.active {
+        color: #10b981; /* Green color */
+        text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+    }
+
+/* Product page animations */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-in {
+    animation: slideInUp 0.6s ease-out;
+}
+
+/* ---------------- Admin Panel Tabs ---------------- */
+.tab-btn {
+    background: transparent;
+    color: #9ca3af;
+}
+
+    .tab-btn.active {
+        background: linear-gradient(to right, #10b981, #059669);
+        color: white;
+        box-shadow: 0 4px 6px rgba(16, 185, 129, 0.3);
+    }
+
+    .tab-btn:hover {
+        color: white;
+    }
+
+/* Mobile Bottom Navigation - Force to Bottom */
+@media (max-width: 768px) {
+    /* Make sure body has proper padding */
+    body {
+        padding-top: 64px !important;
+        padding-bottom: 100px !important;
+        min-height: 100vh;
+    }
+
+    /* Force mobile nav to bottom */
+    nav.md\:hidden {
+        position: fixed !important;
+        bottom: 0 !important;
+        top: auto !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+
+    /* Mobile header stays at top */
+    header.md\:hidden {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+
+    /* Main content needs spacing */
+    main {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+}
+
+@media (min-width: 769px) {
+    body {
+        padding-top: 80px; /* Space for desktop navbar */
+    }
+}
+
+/* Active nav item highlight */
+.active-nav-item svg {
+    color: #10b981 !important;
+}
+
+.active-nav-item span {
+    color: #10b981 !important;
+}
+
+/* ============================================
+   LAWYER REGISTRATION FORM STYLES
+   ============================================ */
+
+/* Main Layout - Steps on Right */
+.form-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.form-content {
+    flex: 1;
+    max-width: 800px;
+}
+
+/* Step Indicator - Right Side */
+.step-indicator {
+    position: sticky;
+    top: 2rem;
+    width: 220px;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #e5e7eb;
+    height: fit-content;
+}
+
+    .step-indicator h4 {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: #374151;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid #e5e7eb;
+        padding-bottom: 0.5rem;
+    }
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: #f3f4f6;
+    transition: all 0.3s ease;
+    font-size: 0.875rem;
+}
+
+    .step.active {
+        background-color: #10b981;
+        color: white;
+        transform: translateX(-5px);
+        box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+    }
+
+    .step.completed {
+        background-color: #059669;
+        color: white;
+    }
+
+.step-number {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.75rem;
+}
+
+.step.completed .step-number::after {
+    content: '✓';
+}
+
+/* Section blur effect */
+.section-disabled {
+    filter: blur(2px);
+    pointer-events: none;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+}
+
+/* OTP Modal Styles */
+.otp-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+    .otp-modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+.otp-content {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    max-width: 420px;
+    width: 90%;
+    direction: rtl;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.otp-inputs {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.otp-input {
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 2px solid #d1d5db;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    background: #f9fafb;
+}
+
+    .otp-input:focus {
+        border-color: #10b981;
+        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+        outline: none;
+        background: white;
+        transform: scale(1.05);
+    }
+
+    .otp-input.error {
+        border-color: #ef4444;
+        animation: shake 0.5s ease;
+    }
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+/* Phone Verification UI */
+.phone-container {
+    position: relative;
+}
+
+.phone-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.verified-badge {
+    display: none;
+    color: #10b981;
+    font-weight: bold;
+    font-size: 0.875rem;
+    align-items: center;
+    gap: 0.25rem;
+    background: #dcfce7;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+}
+
+    .verified-badge.show {
+        display: inline-flex;
+    }
+
+.send-otp-btn {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+    .send-otp-btn:hover:not(:disabled) {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .send-otp-btn:disabled {
+        background: #9ca3af;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+    }
+
+    .send-otp-btn.verified {
+        background: #10b981;
+        cursor: default;
+    }
+
+.phone-verified input {
+    border-color: #10b981 !important;
+    background-color: #f0fdf4 !important;
+    pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+    }
+
+    .step-indicator {
+        position: static;
+        width: 100%;
+        order: -1;
+        margin-bottom: 2rem;
+    }
+
+    .otp-input {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.25rem;
+    }
+}
+
+/* Button styles for consistency */
+.btn-primary {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+
+.btn-secondary {
+    background: #e5e7eb;
+    color: #374151;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+    .btn-secondary:hover {
+        background: #d1d5db;
+    }
+
+/* Loading animation */
+.animate-spin {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Form input focus */
+.form-section input:focus,
+.form-section select:focus,
+.form-section textarea:focus {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    outline: none;
+}
+
+/* Error messages */
+.error-message {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+    .error-message.show {
+        display: block;
+    }
+
+/* Success state */
+.input-success {
+    border-color: #10b981 !important;
+    background-color: #f0fdf4 !important;
+}
+
+input:required, select:required, textarea:required {
+    border-left: 3px solid #ef4444;
+}
+
+    input:required:valid, select:required:valid, textarea:required:valid {
+        border-left-color: #10b981;
+    }
+
+.lawyer-card {
+    background-color: #e4e4e4;
+    flex: 0 0 auto;
+    width: 250px;
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    scroll-snap-align: start;
+}
+
+#onlineLawyersList {
+    display: flex;
+    overflow-x: auto;
+    gap: 1.5rem; /* space between cards */
+    padding: 1rem;
+    scroll-behavior: smooth;
+    scroll-padding-left: 1rem;
+    scroll-snap-type: x mandatory;
+    padding-inline: 1rem;
+}
+
+
+#lawyerCard {
+    background-color: #e4e4e4;
+}
+
+.hide-scroll-bar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+    .hide-scroll-bar::-webkit-scrollbar {
+        display: none;
+    }
+
+@keyframes colorFlash {
+    0%, 100% {
+        background-color: #2E7D32;
+    }
+    /* Light Green */
+    50% {
+        background-color: #1B5E20;
+    }
+    /* Dark Green */
+}
+
+.animate-flash-green {
+    animation: colorFlash 2s infinite ease-in-out;
+}
